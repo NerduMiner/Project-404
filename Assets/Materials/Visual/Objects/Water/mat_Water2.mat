@@ -36,10 +36,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_29A8EAB: 1.28
-    - Vector1_3C2CF0EB: 0.0021
+    - Vector1_29A8EAB: 0.2
+    - Vector1_3C2CF0EB: 0.0129
     - Vector1_53B9698E: 0.8
-    - Vector1_6D9DC178: 44.5
+    - Vector1_6D9DC178: 69.36
     - Vector1_93DCFAA9: 2.25
     - Vector1_95BBCBE0: 3000
     - Vector1_C5543ECF: 5

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyTest : MonoBehaviour
 {
 	[Header("Settings")]
-	[SerializeField] float _TimeTillShake = 2.5f;
-
-	float _ShakeTimer = 0;
-	EnemyDamageScript _Damage = null;
+	[SerializeField] private float _TimeTillShake = 2.5f;
+	private float _ShakeTimer = 0;
+	private EnemyDamageScript _Damage = null;
 
 	private void Awake()
 	{
@@ -28,9 +25,9 @@ public class EnemyTest : MonoBehaviour
 				int i = _Damage._AttachedPikmin.Count;
 				while (i > 0)
 				{
-					var pikmin = _Damage._AttachedPikmin[i - 1];
+					PikminAI pikmin = _Damage._AttachedPikmin[i - 1];
 					pikmin.ChangeState(PikminStates.Idle);
-					var rb = pikmin.GetComponent<Rigidbody>();
+					Rigidbody rb = pikmin.GetComponent<Rigidbody>();
 					rb.isKinematic = false;
 					rb.AddForce(-pikmin.transform.forward * 10000);
 					i--;
