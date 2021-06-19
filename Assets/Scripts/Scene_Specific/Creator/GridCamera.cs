@@ -2,15 +2,15 @@
 
 public class GridCamera : MonoBehaviour
 {
-	[Header("Components")]
-	[SerializeField] private GridManager _GridManager = null;
-
 	[Header("Settings")]
 	[SerializeField] private Vector2 _OffsetFromPoint = new Vector2(5, 7.5f);
 	[SerializeField] private float _Speed = 5;
+	private GridManager _GridManager = null;
 
 	private void Awake()
 	{
+		_GridManager = GridManager._Instance;
+
 		Vector3 originPos = _GridManager.GetCurrentPosition();
 		Vector3 position = new Vector3(originPos.x, _OffsetFromPoint.y, originPos.z - _OffsetFromPoint.x);
 		transform.position = position;

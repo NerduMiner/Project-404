@@ -11,6 +11,8 @@ public class GridObject : MonoBehaviour
 {
 	[Header("Debugging")]
 	public GameObject _Mesh = null;
+	public GridMesh _GridMesh = null;
+
 	public Vector2Int _Position = Vector2Int.zero;
 	private Renderer _Renderer = null;
 
@@ -48,6 +50,11 @@ public class GridObject : MonoBehaviour
 		_Mesh.transform.localScale = new Vector3(size / 10, 1, size / 10);
 		_Mesh.transform.position = new Vector3(transform.position.x + (size / 2), transform.position.y, transform.position.z + (size / 2));
 		_Mesh.transform.parent = transform;
+
+		// Add GridMesh
+		_GridMesh = _Mesh.AddComponent<GridMesh>();
+		// Change color to solid white
+		_Mesh.GetComponent<Renderer>().material.SetColor("_BaseColor", Color.white);
 	}
 
 	public void DestroyMesh()
@@ -58,5 +65,6 @@ public class GridObject : MonoBehaviour
 		}
 
 		Destroy(_Mesh);
+		// gridmesh automatically gets set to null
 	}
 }
