@@ -28,7 +28,7 @@ public class PikminCarry : MonoBehaviour, IPikminCarry
 	[SerializeField] private float _Speed = 0;
 	[SerializeField] private float _AddedSpeed = 1;
 
-	[SerializeField] private GameObject _CarryTextPrefab;
+	[SerializeField] private GameObject _CarryTextPrefab = null;
 	public float _Radius = 1;
 	private bool _IsBeingCarried = false;
 	private readonly List<PikminAI> _CarryingPikmin = new List<PikminAI>();
