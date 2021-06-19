@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Game/scn_main_menu.unity
     guid: 1481981775e367d48b9cfc922beb48d0
   - enabled: 1
-    path: Assets/Scenes/Debug/test_level_pikmin/scn_test_Pikmin.unity
-    guid: 7ed95e555c5ada44b903d65152e4f360
-  - enabled: 1
     path: Assets/Scenes/Demo/demo_level/scn_demo_level.unity
     guid: f4d9df10588c1e244873629c3ad88a3d
+  - enabled: 1
+    path: Assets/P1/Scenes/impact_site/scn_impact_site.unity
+    guid: 7425e03a7a13cc1499dc39c1bd821bf7
   m_configObjects: {}
