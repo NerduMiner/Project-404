@@ -12,7 +12,6 @@ public class GridObject : MonoBehaviour
 	[Header("Debugging")]
 	public GameObject _Mesh = null;
 	public Vector2Int _Position = Vector2Int.zero;
-	private GO_State _State = GO_State.Unselected;
 	private Renderer _Renderer = null;
 
 	private void Awake()

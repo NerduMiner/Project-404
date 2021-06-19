@@ -109,7 +109,7 @@ public class GridManager : MonoBehaviour
 		_CurrentPosition.y = Mathf.Clamp(_CurrentPosition.y, 0, _GridSize.y - 1);
 
 		if (_CurrentObject._Mesh != null)
-		{ 
+		{
 			_CurrentObject.SetState(GO_State.Mesh);
 		}
 		else
