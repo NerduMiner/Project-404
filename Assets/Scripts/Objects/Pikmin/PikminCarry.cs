@@ -144,7 +144,7 @@ public class PikminCarry : MonoBehaviour, IPikminCarry
 		}
 
 		_Text.HandleColor(_CarryingPikmin);
-		_Text.SetText(_CarryingPikmin.Count, _MaxAmountRequired);
+		_Text.SetText(_CarryingPikmin.Count, _MinAmountRequired);
 		if (_CarryingPikmin.Count == 1)
 		{
 			_Text.FadeIn();
