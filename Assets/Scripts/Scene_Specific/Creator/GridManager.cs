@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -28,6 +29,13 @@ public class GridManager : MonoBehaviour
 	[SerializeField] Texture _StoneTexture = null;
 	[SerializeField] Texture _MossTexture = null;
 	[SerializeField] TMP_Dropdown _DropDown = null;
+
+	[SerializeField] GameObject _PlayerDummyPrefab = null;
+	GameObject _PlacedPlayer = null;
+	[SerializeField] GameObject _PikminDummyPrefab = null;
+	GameObject[] _PlacedPikmin = null;
+	[SerializeField] GameObject _OnionDummyPrefab = null;
+	GameObject _PlacedOnion = null;
 
 	[Header("UI Components")]
 	[SerializeField] GameObject _UIMeshCreation = null;
@@ -87,6 +95,11 @@ public class GridManager : MonoBehaviour
 			{
 				_CurrentObject.DestroyMesh();
 			}
+		}
+
+		if (_Stage == GM_Stage.EntityPlacement)
+		{
+			
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -228,15 +241,18 @@ public class GridManager : MonoBehaviour
 				_UICompiling.SetActive(true);
 				break;
 			case GM_Stage.Play:
-				for (int i = 0; i < _DeleteOnPlay.Length; i++)
+				Globals._FadeManager.FadeInOut(2, 2, new Action(() =>
 				{
-					Destroy(_DeleteOnPlay[i]);
-				}
+					for (int i = 0; i < _DeleteOnPlay.Length; i++)
+					{
+						Destroy(_DeleteOnPlay[i]);
+					}
 
-				GameObject player = null;
-				GameObject sceneMaster = null;
-				SceneHelper.SetupNewScene(ref player, ref sceneMaster);
-				Destroy(gameObject);
+					GameObject player = null;
+					GameObject sceneMaster = null;
+					SceneHelper.SetupNewScene(ref player, ref sceneMaster);
+					Destroy(gameObject);
+				}));
 				break;
 			default:
 				break;
