@@ -12,11 +12,6 @@ public class Bulborb : MonoBehaviour, IPikminAttack
 		_DamageScript = GetComponent<EnemyDamageScript>();
 	}
 
-	private void Update()
-	{
-
-	}
-
 	#region Pikmin Attacking Implementation
 	public PikminIntention IntentionType => PikminIntention.Attack;
 

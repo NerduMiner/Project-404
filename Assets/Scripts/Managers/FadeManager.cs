@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class FadeManager : MonoBehaviour
 {
-	private void Awake()
+	private FadeManager()
 	{
 		Globals._FadeManager = this;
 	}

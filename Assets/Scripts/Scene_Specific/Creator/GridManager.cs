@@ -56,19 +56,23 @@ public class GridManager : MonoBehaviour
 
 	public GridObject _CurrentObject = null;
 	public List<GridObject> _GridObjects = new List<GridObject>();
+	private GameObject _GridParent = null;
+
+	public GridManager()
+	{
+		_Instance = this;
+	}
 
 	private void Awake()
 	{
-		_Instance = this;
-
-		GameObject arbitraryParent = new GameObject("GRID_PARENT");
+		_GridParent = new GameObject("GRID_PARENT");
 		for (int x = 0; x < _GridSize.x; x++)
 		{
 			for (int y = 0; y < _GridSize.y; y++)
 			{
 				GameObject newObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 				newObj.transform.position = new Vector3(_GridObjectSize * x, 0, _GridObjectSize * y);
-				newObj.transform.SetParent(arbitraryParent.transform);
+				newObj.transform.SetParent(_GridParent.transform);
 				newObj.name = $"grid_obj({x},{y})";
 
 				GridObject obj = newObj.AddComponent<GridObject>();
@@ -247,10 +251,12 @@ public class GridManager : MonoBehaviour
 					{
 						Destroy(_DeleteOnPlay[i]);
 					}
+					Destroy(_GridParent);
 
 					GameObject player = null;
 					GameObject sceneMaster = null;
 					SceneHelper.SetupNewScene(ref player, ref sceneMaster);
+					player.transform.position = GetCurrentPosition() + Vector3.up;
 					Destroy(gameObject);
 				}));
 				break;

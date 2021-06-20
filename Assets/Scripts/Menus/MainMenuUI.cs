@@ -5,6 +5,9 @@
  * Created for: needing a UI for the main menu
  */
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,32 +21,35 @@ public class MainMenuUI : BaseUIController
 
 	private void Awake()
 	{
-		if (Application.isEditor || Debug.isDebugBuild)
+		Globals._FadeManager.FadeIn(2, new Action(() =>
 		{
-			bool skippedCurrent = false;
-			// Generate options for every scene
-			for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+			if (Application.isEditor || Debug.isDebugBuild)
 			{
-				// Don't generate an option for the current scene
-				if (SceneUtility.GetScenePathByBuildIndex(i) == SceneManager.GetActiveScene().path)
+				bool skippedCurrent = false;
+				List<Transform> objects = new List<Transform>();
+				// Generate options for every scene
+				for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
 				{
-					skippedCurrent = true;
-					continue;
+					// Don't generate an option for the current scene
+					if (SceneUtility.GetScenePathByBuildIndex(i) == SceneManager.GetActiveScene().path)
+					{
+						skippedCurrent = true;
+						continue;
+					}
+
+					string sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
+
+					Transform obj = Instantiate(_TemplateButton, _Canvas);
+					obj.GetComponentInChildren<Text>().text = sceneName;
+					obj.GetComponent<Button>().onClick.AddListener(() => Globals._FadeManager.FadeInOut(2, 1, () => SceneManager.LoadScene(sceneName)));
+					obj.GetComponent<RectTransform>().localPosition = new Vector3(-450, 300 - ((skippedCurrent ? i - 1 : i) * 100));
+					obj.gameObject.SetActive(true);
+					objects.Add(obj);
 				}
 
-				string sceneName = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
-
-				Transform obj = Instantiate(_TemplateButton, _Canvas);
-				obj.GetComponentInChildren<Text>().text = sceneName;
-				obj.GetComponent<Button>().onClick.AddListener(() => Globals._FadeManager.FadeInOut(2, 1, () => SceneManager.LoadScene(sceneName)));
-				obj.GetComponent<RectTransform>().localPosition = new Vector3(-450, 300 - ((skippedCurrent ? i - 1 : i) * 100));
-				obj.gameObject.SetActive(true);
+				StartCoroutine(FadeInDebugControls(objects));
 			}
-
-			// Reparent because we want it to overlay everything
-			_FadePanel.transform.SetParent(null);
-			_FadePanel.transform.SetParent(_Canvas);
-		}
+		}));
 	}
 
 	public void PressPlay()
@@ -55,5 +61,41 @@ public class MainMenuUI : BaseUIController
 	{
 		Application.Quit();
 		Debug.Break();
+	}
+
+	public IEnumerator FadeInDebugControls(List<Transform> objects)
+	{
+		List<Image> imageComponents = new List<Image>();
+		List<Text> textComponents = new List<Text>();
+		for (int i = 0; i < objects.Count; i++)
+		{
+			imageComponents.Add(objects[i].GetComponent<Image>());
+			textComponents.Add(objects[i].GetComponentInChildren<Text>());
+		}
+
+		float t = 0;
+		float time = 1;
+		while (t <= time)
+		{
+			t += Time.deltaTime;
+
+			foreach (Image item in imageComponents)
+			{
+				item.color = Color.Lerp(Color.clear, Color.white, t / time);
+			}
+
+			foreach (Text item in textComponents)
+			{
+				item.color = Color.Lerp(Color.clear, Color.white, t / time);
+			}
+
+			yield return null;
+		}
+
+		// Reparent because we want it to overlay everything
+		_FadePanel.transform.SetParent(null, false);
+		_FadePanel.transform.SetParent(_Canvas, false);
+		_FadePanel.enabled = false;
+		yield return null;
 	}
 }

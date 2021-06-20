@@ -21,6 +21,7 @@ public class GridMesh : MonoBehaviour
 			if (Input.GetMouseButtonDown(0))
 			{
 				_Renderer.material.SetTexture("_BaseColorMap", GridManager._Instance.Texturing_GetTex());
+				_Renderer.material.SetFloat("_Smoothness", 0);
 			}
 		}
 	}

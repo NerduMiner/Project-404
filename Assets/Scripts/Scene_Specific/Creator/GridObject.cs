@@ -49,7 +49,6 @@ public class GridObject : MonoBehaviour
 		_Mesh = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		_Mesh.transform.localScale = new Vector3(size / 10, 1, size / 10);
 		_Mesh.transform.position = new Vector3(transform.position.x + (size / 2), transform.position.y, transform.position.z + (size / 2));
-		_Mesh.transform.parent = transform;
 
 		// Add GridMesh
 		_GridMesh = _Mesh.AddComponent<GridMesh>();
