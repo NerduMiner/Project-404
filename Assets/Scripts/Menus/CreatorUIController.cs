@@ -4,9 +4,9 @@ public class CreatorUIController : BaseUIController
 {
 	// for actual UI go to Scripts/Scene_Specific/Creator/GridManager.cs
 
-	[SerializeField] GameObject _Canvas = null;
-	[SerializeField] GameObject _GridManager = null;
-	[SerializeField] GridCamera _GridCamera = null;
+	[SerializeField] private GameObject _Canvas = null;
+	[SerializeField] private GameObject _GridManager = null;
+	[SerializeField] private GridCamera _GridCamera = null;
 
 	private void OnEnable()
 	{

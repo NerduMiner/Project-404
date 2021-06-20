@@ -11,6 +11,7 @@ public static class SceneHelper
 		// Create Directional Light and assign it to the day manager
 		GameObject light = new GameObject("Directional Light");
 		Light lightComp = light.AddComponent<Light>();
+		lightComp.intensity = 7.5f;
 		lightComp.type = LightType.Directional;
 		light.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(50, -30, 0));
 		sceneMaster.GetComponentInChildren<DayTimeManager>()._SunLight = light.transform;
@@ -27,6 +28,7 @@ public static class SceneHelper
 		// Create Directional Light and assign it to the day manager
 		GameObject light = new GameObject("Directional Light");
 		Light lightComp = light.AddComponent<Light>();
+		lightComp.intensity = 7.5f;
 		lightComp.type = LightType.Directional;
 		light.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(50, -30, 0));
 		sceneMaster.GetComponentInChildren<DayTimeManager>()._SunLight = light.transform;
