@@ -27,7 +27,7 @@ public class GridManager : MonoBehaviour
 	[Header("Stage Specific")]
 	[SerializeField] private Texture _GrassTexture = null;
 	[SerializeField] private Texture _StoneTexture = null;
-	[SerializeField] private Texture _MossTexture = null;
+	[SerializeField] private Texture _SandTexture = null;
 	[SerializeField] private TMP_Dropdown _DropDown = null;
 
 	[SerializeField] private GameObject _PlayerDummyPrefab = null;
@@ -287,9 +287,9 @@ public class GridManager : MonoBehaviour
 		{
 			return _StoneTexture;
 		}
-		else if (opt.text == "Moss")
+		else if (opt.text == "Sand")
 		{
-			return _MossTexture;
+			return _SandTexture;
 		}
 		return null;
 	}
