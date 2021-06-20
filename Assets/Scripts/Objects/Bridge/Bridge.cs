@@ -62,15 +62,16 @@ public class Bridge : MonoBehaviour, IPikminAttack, IHealth
 		Quaternion lookingAtStart = Quaternion.LookRotation((_StartPoint.position - _EndPoint.position).normalized);
 
 		// Spawn both ramps, make them look at each end of the bride and add them to the _BridgePieces list
+		GameObject startingRamp = Instantiate(_Piece);
+		startingRamp.transform.SetPositionAndRotation(_StartPoint.position + Vector3.up * _RampHeightOffset,
+			Quaternion.Euler(lookingAtEnd.eulerAngles.x - _AngleOfRamp, lookingAtEnd.eulerAngles.y, lookingAtEnd.eulerAngles.z));
+		_BridgePieces.Add(startingRamp);
 
-		GameObject startingRamp = Instantiate(_Piece, _StartPoint.position + Vector3.up * _RampHeightOffset, Quaternion.identity);
-		startingRamp.transform.rotation = Quaternion.Euler(lookingAtEnd.eulerAngles.x - _AngleOfRamp, lookingAtEnd.eulerAngles.y, lookingAtEnd.eulerAngles.z);
-		_BridgePieces.Add(startingRamp); // _BridgePieces[0] will be the starting ramp
-
-		GameObject endingRamp = Instantiate(_Piece, _EndPoint.position + Vector3.up * _RampHeightOffset, Quaternion.identity);
-		endingRamp.transform.rotation = Quaternion.Euler(lookingAtStart.eulerAngles.x - _AngleOfRamp, lookingAtStart.eulerAngles.y, lookingAtStart.eulerAngles.z);
+		GameObject endingRamp = Instantiate(_Piece);
+		endingRamp.transform.SetPositionAndRotation(_EndPoint.position + Vector3.up * _RampHeightOffset,
+			 Quaternion.Euler(lookingAtStart.eulerAngles.x - _AngleOfRamp, lookingAtStart.eulerAngles.y, lookingAtStart.eulerAngles.z));
 		endingRamp.SetActive(false);
-		_BridgePieces.Add(endingRamp); // _BridgePieces[1] will be the end ramp
+		_BridgePieces.Add(endingRamp);
 
 		_CurrentStepPos = _StartPoint.position;
 	}
@@ -103,10 +104,10 @@ public class Bridge : MonoBehaviour, IPikminAttack, IHealth
 		_StepIndex++;
 	}
 
-	private void OnDrawGizmosSelected()
+	private void OnDrawGizmos()
 	{
 		// Draw the outline of the bridge
-		if (_Piece == null || _StartPoint == null || _EndPoint == null)
+		if (_Piece == null || _StartPoint == null || _EndPoint == null || _StepSize < 0)
 		{
 			return;
 		}
@@ -126,17 +127,23 @@ public class Bridge : MonoBehaviour, IPikminAttack, IHealth
 
 		// Draw starting ramp
 		Quaternion lookAtEnd = Quaternion.LookRotation((_EndPoint.position - _StartPoint.position).normalized);
-		Gizmos.DrawMesh(pieceMesh, _StartPoint.position + Vector3.up * rampHeightOffset, Quaternion.Euler(lookAtEnd.eulerAngles.x - _AngleOfRamp, lookAtEnd.eulerAngles.y, lookAtEnd.eulerAngles.z), _Piece.transform.localScale);
+		Gizmos.DrawMesh(pieceMesh, _StartPoint.position + (Vector3.up * rampHeightOffset),
+									Quaternion.Euler(lookAtEnd.eulerAngles.x - _AngleOfRamp, lookAtEnd.eulerAngles.y, lookAtEnd.eulerAngles.z),
+									_Piece.transform.localScale);
 		// Draw ending ramp
 		Quaternion lookAtStart = Quaternion.LookRotation((_StartPoint.position - _EndPoint.position).normalized);
-		Gizmos.DrawMesh(pieceMesh, _EndPoint.position + Vector3.up * rampHeightOffset, Quaternion.Euler(lookAtStart.eulerAngles.x - _AngleOfRamp, lookAtStart.eulerAngles.y, lookAtStart.eulerAngles.z), _Piece.transform.localScale);
+		Gizmos.DrawMesh(pieceMesh, _EndPoint.position + (Vector3.up * rampHeightOffset),
+			Quaternion.Euler(lookAtStart.eulerAngles.x - _AngleOfRamp, lookAtStart.eulerAngles.y, lookAtStart.eulerAngles.z),
+			_Piece.transform.localScale);
 
 		Vector3 point = _StartPoint.position;
 		for (int i = 0; i < stepsToFinish; i++)
 		{
 			point = Vector3.MoveTowards(point, _EndPoint.position, _StepSize);
 			Quaternion lookRotation = Quaternion.LookRotation((point - _EndPoint.position).normalized);
-			Gizmos.DrawMesh(pieceMesh, point + Vector3.up * (Mathf.Sin(_AngleOfRamp * Mathf.Deg2Rad) - (_Piece.transform.localScale.y / 2)), lookRotation, _Piece.transform.localScale);
+			Gizmos.DrawMesh(pieceMesh,
+				point + (Vector3.up * (Mathf.Sin(_AngleOfRamp * Mathf.Deg2Rad) - (_Piece.transform.localScale.y / 2))), lookRotation,
+				_Piece.transform.localScale);
 		}
 	}
 
