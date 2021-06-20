@@ -85,6 +85,8 @@ public class GridManager : MonoBehaviour
 				}
 			}
 		}
+
+		HandleStageChange(GM_Stage.MeshCreation);
 	}
 
 	private void Update()
