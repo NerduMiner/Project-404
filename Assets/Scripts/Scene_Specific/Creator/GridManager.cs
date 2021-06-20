@@ -25,26 +25,26 @@ public class GridManager : MonoBehaviour
 	public static GridManager _Instance = null;
 
 	[Header("Stage Specific")]
-	[SerializeField] Texture _GrassTexture = null;
-	[SerializeField] Texture _StoneTexture = null;
-	[SerializeField] Texture _MossTexture = null;
-	[SerializeField] TMP_Dropdown _DropDown = null;
+	[SerializeField] private Texture _GrassTexture = null;
+	[SerializeField] private Texture _StoneTexture = null;
+	[SerializeField] private Texture _MossTexture = null;
+	[SerializeField] private TMP_Dropdown _DropDown = null;
 
-	[SerializeField] GameObject _PlayerDummyPrefab = null;
-	GameObject _PlacedPlayer = null;
-	[SerializeField] GameObject _PikminDummyPrefab = null;
-	GameObject[] _PlacedPikmin = null;
-	[SerializeField] GameObject _OnionDummyPrefab = null;
-	GameObject _PlacedOnion = null;
+	[SerializeField] private GameObject _PlayerDummyPrefab = null;
+	private readonly GameObject _PlacedPlayer = null;
+	[SerializeField] private GameObject _PikminDummyPrefab = null;
+	private readonly GameObject[] _PlacedPikmin = null;
+	[SerializeField] private GameObject _OnionDummyPrefab = null;
+	private readonly GameObject _PlacedOnion = null;
 
 	[Header("UI Components")]
-	[SerializeField] GameObject _UIMeshCreation = null;
-	[SerializeField] GameObject _UITexturing = null;
-	[SerializeField] GameObject _UIEntityPlacement = null;
-	[SerializeField] GameObject _UICompiling = null;
+	[SerializeField] private GameObject _UIMeshCreation = null;
+	[SerializeField] private GameObject _UITexturing = null;
+	[SerializeField] private GameObject _UIEntityPlacement = null;
+	[SerializeField] private GameObject _UICompiling = null;
 
 	[Header("Settings")]
-	[SerializeField] GameObject[] _DeleteOnPlay = null;
+	[SerializeField] private GameObject[] _DeleteOnPlay = null;
 	public GM_Stage _Stage = GM_Stage.MeshCreation;
 
 	public int _GridObjectSize = 5;
@@ -99,7 +99,7 @@ public class GridManager : MonoBehaviour
 
 		if (_Stage == GM_Stage.EntityPlacement)
 		{
-			
+
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -205,7 +205,7 @@ public class GridManager : MonoBehaviour
 				break;
 			case GM_Stage.Texturing:
 				_UITexturing.SetActive(false);
-				foreach (var obj in _GridObjects)
+				foreach (GridObject obj in _GridObjects)
 				{
 					if (obj._GridMesh != null)
 					{
@@ -270,7 +270,7 @@ public class GridManager : MonoBehaviour
 	#region Stage Handling
 	public Texture Texturing_GetTex()
 	{
-		var opt = _DropDown.options[_DropDown.value];
+		TMP_Dropdown.OptionData opt = _DropDown.options[_DropDown.value];
 		if (opt.text == "Grass")
 		{
 			return _GrassTexture;

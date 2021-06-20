@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GridMesh : MonoBehaviour
 {
 	[HideInInspector] public Renderer _Renderer = null;
-	MeshCollider _Collider = null;
+	private MeshCollider _Collider = null;
 
 	private void Awake()
 	{

@@ -8,9 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Requires animator, and inside of the animator requires there to be a "hit" bool
-[RequireComponent(typeof(Animator))]
-public class EnemyDamageScript : MonoBehaviour, IPikminAttack, IHealth
+public class EnemyDamageScript : MonoBehaviour, IHealth
 {
 	[Header("ENABLE WHEN NOT USED FOR GAMEPLAY")]
 	[SerializeField] private bool _Showcase = false;
@@ -26,15 +24,13 @@ public class EnemyDamageScript : MonoBehaviour, IPikminAttack, IHealth
 
 	[HideInInspector] public List<PikminAI> _AttachedPikmin = new List<PikminAI>();
 	[HideInInspector] public bool _Dead = false;
-	private HealthWheel _HWScript = null;
-	private Animator _Animator = null;
+	[HideInInspector] public HealthWheel _HWScript = null;
 	private float _CurrentHealth = 0;
 
 	public PikminIntention IntentionType => PikminIntention.Attack;
 
 	private void Awake()
 	{
-		_Animator = GetComponent<Animator>();
 		_CurrentHealth = _MaxHealth;
 	}
 
@@ -55,11 +51,6 @@ public class EnemyDamageScript : MonoBehaviour, IPikminAttack, IHealth
 
 	private void Update()
 	{
-		if (_AttachedPikmin.Count == 0 && _Animator.GetBool("hit"))
-		{
-			_Animator.SetBool("hit", true);
-		}
-
 		if (_CurrentHealth <= 0)
 		{
 			while (_AttachedPikmin.Count > 0)
@@ -77,31 +68,6 @@ public class EnemyDamageScript : MonoBehaviour, IPikminAttack, IHealth
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(transform.position + _HWOffset, _HWScale);
 	}
-
-	#region Pikmin Attacking Implementation
-
-	public void OnAttackRecieve(float damage)
-	{
-		SubtractHealth(damage);
-		_HWScript._CurrentHealth = _CurrentHealth;
-
-		if (_Animator.GetBool("hit") == false)
-		{
-			_Animator.SetBool("hit", true);
-		}
-	}
-
-	public void OnAttackStart(PikminAI attachedPikmin)
-	{
-		_AttachedPikmin.Add(attachedPikmin);
-	}
-
-	public void OnAttackEnd(PikminAI detachedPikmin)
-	{
-		_AttachedPikmin.Remove(detachedPikmin);
-	}
-
-	#endregion
 
 	#region Health Implementation
 
