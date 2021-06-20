@@ -14,10 +14,7 @@ public class Bulborb : MonoBehaviour, IPikminAttack
 
 	private void Update()
 	{
-		if (_DamageScript._AttachedPikmin.Count == 0 && _Animator.GetBool("hit"))
-		{
-			_Animator.SetBool("hit", true);
-		}
+
 	}
 
 	#region Pikmin Attacking Implementation
@@ -38,11 +35,6 @@ public class Bulborb : MonoBehaviour, IPikminAttack
 	{
 		_DamageScript.SubtractHealth(damage);
 		_DamageScript._HWScript._CurrentHealth = _DamageScript.GetCurrentHealth();
-
-		if (_Animator.GetBool("hit") == false)
-		{
-			_Animator.SetBool("hit", true);
-		}
 	}
 	#endregion
 }
