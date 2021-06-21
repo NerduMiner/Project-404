@@ -21,7 +21,7 @@ public class MainMenuUI : BaseUIController
 
 	private void Awake()
 	{
-		Globals._FadeManager.FadeIn(2, new Action(() =>
+		Globals._FadeManager.FadeIn(1, new Action(() =>
 		{
 			if (Application.isEditor || Debug.isDebugBuild)
 			{
@@ -41,7 +41,7 @@ public class MainMenuUI : BaseUIController
 
 					Transform obj = Instantiate(_TemplateButton, _Canvas);
 					obj.GetComponentInChildren<Text>().text = sceneName;
-					obj.GetComponent<Button>().onClick.AddListener(() => Globals._FadeManager.FadeInOut(2, 1, () => SceneManager.LoadScene(sceneName)));
+					obj.GetComponent<Button>().onClick.AddListener(() => Globals._FadeManager.FadeInOut(1, 1, () => SceneManager.LoadScene(sceneName)));
 					obj.GetComponent<RectTransform>().localPosition = new Vector3(-450, 300 - ((skippedCurrent ? i - 1 : i) * 100));
 					obj.gameObject.SetActive(true);
 					objects.Add(obj);
@@ -54,7 +54,7 @@ public class MainMenuUI : BaseUIController
 
 	public void PressPlay()
 	{
-		Globals._FadeManager.FadeInOut(2, 1, () => SceneManager.LoadScene("scn_demo_level"));
+		Globals._FadeManager.FadeInOut(1, 1, () => SceneManager.LoadScene("scn_demo_level"));
 	}
 
 	public void PressExit()
@@ -74,7 +74,7 @@ public class MainMenuUI : BaseUIController
 		}
 
 		float t = 0;
-		float time = 1;
+		float time = 0.5f;
 		while (t <= time)
 		{
 			t += Time.deltaTime;

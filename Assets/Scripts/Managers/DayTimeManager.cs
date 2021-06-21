@@ -73,7 +73,7 @@ public class DayTimeManager : MonoBehaviour
 		if (seconds >= _TotalDayTime)
 		{
 			// End of Day
-			Globals._FadeManager.FadeOut(5, new Action(EndOfDayFadeoutAction));
+			Globals._FadeManager.FadeOut(2.5f, new Action(EndOfDayFadeoutAction));
 		}
 	}
 
