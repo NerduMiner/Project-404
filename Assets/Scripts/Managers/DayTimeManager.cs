@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 [Serializable]
@@ -79,7 +80,7 @@ public class DayTimeManager : MonoBehaviour
 
 	private static void EndOfDayFadeoutAction()
 	{
+		SceneManager.LoadScene(0);
 		Debug.Log("End of Day, fadeout done");
-		Debug.Break();
 	}
 }
