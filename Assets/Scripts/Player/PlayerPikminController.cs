@@ -104,7 +104,11 @@ public class PlayerPikminController : MonoBehaviour
 				// Face whistle and convert local velocity to global, and apply it
 				transform.LookAt(new Vector3(whistlePos.x, transform.position.y, whistlePos.z));
 				_PikminInHand.transform.LookAt(new Vector3(whistlePos.x, _PikminInHand.transform.position.y, whistlePos.z));
-				rigidbody.velocity = _PikminInHand.transform.TransformDirection(new Vector3(0.0f, velY, velX));
+				Vector3 finalVel = _PikminInHand.transform.TransformDirection(new Vector3(0.0f, velY, velX));
+				if (finalVel != Vector3.zero)
+				{
+					rigidbody.velocity = finalVel;
+				}
 
 				// TODO: Adjust targeting to be more accurate to whistle position/avoid having Pikmin
 				// be thrown directly in front of Olimar rather than onto the whistle.

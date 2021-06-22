@@ -79,8 +79,6 @@ public class FadeManager : MonoBehaviour
 			blackImg.color = new Color(0, 0, 0, 255);
 		}
 
-		blackImg.enabled = false;
-
 		yield return null;
 
 		onFadeEnd.Invoke();
@@ -106,8 +104,6 @@ public class FadeManager : MonoBehaviour
 		{
 			blackImg.color = new Color(0, 0, 0, 0);
 		}
-
-		blackImg.enabled = false;
 
 		yield return null;
 
